@@ -47,3 +47,5 @@ Route::get('/error-500', function () {
 Auth::routes(['verify'=>true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Posiblemente haya algún fallo en restear la contraseña...

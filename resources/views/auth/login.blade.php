@@ -1,73 +1,59 @@
+<!--Se llama a la plantilla principal ya creada-->
 @extends('plantillas.portada')
 
+@section('titulo')
+<title>Login</title>
+@stop
+
 @section('contenidoPrincipal')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<h3 class="fw-bold text-dark" style="text-align: center;">Login</h3>
+<div class="container bg-secondary rounded-3 align-center p-3" style="width: 400px; margin-bottom: 15%;">
+    <form action="{{ route('login') }}" method="post">
+        @csrf
+        <div class="mb-3">
+            <label class="form-label fw-bold mx-1" for="">Rol</label><br>
+            <div class="form-group">
+                <select class="form-control bg-secondary border-light text-light" id="role" name="role">
+                    <option value="">Elige tu rol</option>
+                    <option value="Empleado">Empleado</option>
+                    <option value="Empleador">Empleador</option>
+                </select>
+                @error('role')
+                <br>
+                <small style="color: white; font-weight: bold;">{{$message}}</small>
+                @enderror
             </div>
         </div>
-    </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold" for="emailInput">Correo</label>
+            <input id="emailInput" name="email" class="form-control" type="email">
+            @error('email')
+            <br>
+            <small style="color: white; font-weight: bold;">{{$message}}</small>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold" for="passwordInput">Contraseña</label>
+            <input id="passwordInput" name="password" class="form-control" type="password">
+            @error('password')
+            <br>
+            <small style="color: white; font-weight: bold;">{{$message}}</small>
+            @enderror
+        </div>
+        <div class="mb-3 form-check">
+            <input id="rememberCheck" class="form-check-input" name="remember" type="checkbox">
+            <label class="form-check-label" for="rememberCheck">Recuerdame...</label>
+        </div>
+        <div>
+            <p>¿No tienes cuenta? <a class="text-light" href="/register"> Regístrate</a></p>
+        </div>
+        <button class="btn btn-success" type="submit">Acceder</button>
+        <a class="btn btn-dark" href="/">Volver</a>
+        @if (Route::has('password.request'))
+        <a class="btn btn-link text-light" href="{{ route('password.request') }}">
+            Olvidaste tu contraseña?
+        </a>
+        @endif
+    </form>
 </div>
-@endsection
+@stop
