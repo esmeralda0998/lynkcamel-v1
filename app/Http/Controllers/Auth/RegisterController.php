@@ -50,12 +50,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|min:2|max:20|regex:/^[A-Za-z0-9áéíóúüñÑÁÉÍÓÚÜ\s]{2,30}$/',
-            'lastname' => 'required|string|min:3|max:30|regex:/^[A-Za-z0-9áéíóúüñÑÁÉÍÓÚÜ\s]{2,30}$/',
+            'name' => 'required|string|min:2|max:20|regex:/^(?=.{3,15}$)[A-ZÁÉÍÓÚ][a-zñáéíóú]+(?: [A-ZÁÉÍÓÚ][a-zñáéíóú]+)?$/',
+            'lastname' => 'required|string|min:3|max:30|regex:/^(?=.{3,15}$)[A-ZÁÉÍÓÚ][a-zñáéíóú]+(?: [A-ZÁÉÍÓÚ][a-zñáéíóú]+)?$/',
             'birth' => 'required|string|min:8|max:10|regex:/^\d{4}-\d{2}-\d{2}$/',
             'gender' => 'required|string|min:1|max:1|regex:/^[MF]$/',
             'role' => 'required|string|min:2|max:12|regex:/^[A-Za-z0-9áéíóúüñÑÁÉÍÓÚÜ\s]{2,12}$/',
-            'email' => 'required|string|min:5|max:20|regex:/^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/',
+            'email' => 'required|string|min:5|max:30|regex:/^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/',
             'password' => 'required|string|min:8|max:20|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/|confirmed',
         ],
         [
@@ -63,12 +63,12 @@ class RegisterController extends Controller
             'name.string' => 'Solo se aceptan cadenas de texto',
             'name.min' => 'No se aceptan nombres de menos de 2 caracteres',
             'name.max' => 'No se aceptan nombres de más de 2 caracteres',
-            'name.regex' => 'No se aceptan caracteres especiales',
+            'name.regex' => 'No se aceptan caracteres especiales, ni numeros, y solo la primera letra debe ser en mayuscula',
             'lastname.required' => 'El apellido es obligatorio',
             'lastname.string' => 'Solo se aceptan cadenas de texto',
             'lastname.min' => 'No se aceptan apellidos de menos de 3 caracteres',
             'lastname.max' => 'No se aceptan apellidos de más de 30 caracteres',
-            'lastname.regex' => 'No se aceptan caracteres especiales',
+            'lastname.regex' => 'No se aceptan caracteres especiales, ni numeros, y solo la primera letra debe ser en mayuscula',
             'birth.required' => 'La fecha de nacimiento es obligatoria',
             'birth.string' => 'Solo se aceptan valores con estructura de fecha',
             'birth.min' => 'No se aceptan fechas de menos de 8 caracteres',
