@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 //Rutas Exteriores
+
+route::get('/dashboard', function () {
+    return view (view: 'dashboard');
+})->middleware(['auth', 'verified'])->name(name: 'dashboard');
 Route::get('/', function () {
     return view('inicio.index');
 });
